@@ -1,12 +1,25 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
+
+import { BrowserRouter as Router } from "react-router-dom";
+
+import Background from "../Background/Background";
+
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+import PageContainer from "../PageContainer/PageContainer";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Wordpress Blog Parser</h1>
-      </header>
+    <div className="app">
+      <Background />
+      <Router>
+        <div className="app__wrapper">
+          <Header />
+          <PageContainer />
+          <Footer />
+        </div>
+      </Router>
     </div>
   );
 }

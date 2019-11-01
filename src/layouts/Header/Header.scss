@@ -1,11 +1,8 @@
 .main-header {
-  $main-color: #fe6b52;
-  $text-color: #ffffff;
-
   padding-top: 35px;
   padding-bottom: 70px;
 
-  color: $text-color;
+  color: var(--text-color);
   text-align: center;
 
   &__logo {
@@ -20,7 +17,7 @@
 
   &__sub-title {
     margin-top: 1em;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 1px;

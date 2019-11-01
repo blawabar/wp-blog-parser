@@ -5,7 +5,7 @@ import "./Footer.scss";
 export default () => {
   return (
     <footer className="main-footer">
-      <h1>Footer</h1>
+      <p className="main-footer__info">Bartosz Krolak &copy;2019 </p>
     </footer>
   );
 };

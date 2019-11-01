@@ -21,14 +21,10 @@
       flex-basis: 100%;
     }
 
-    &__input-number {
-      flex-basis: 30%;
-    }
-
     &__input-holder {
       flex-basis: 65%;
       display: flex;
-      justify-content: center;
+      justify-content: space-evenly;
       align-items: center;
       background-color: white;
 
@@ -41,8 +37,8 @@
     &__input-number,
     &__btn,
     &__select-tip {
-      padding-left: 15px;
-      padding-right: 15px;
+      padding-left: 20px;
+      padding-right: 20px;
       font-family: 'Roboto', sans-serif;
       font-size: 14px;
     }
@@ -92,6 +88,9 @@
     }
 
     &__input-number {
+      flex-basis: 30%;
+      font-size: 14px;
+
       @media (min-width: 1024px) {
         flex-basis: 10%;
         padding-right: 0;
@@ -101,10 +100,13 @@
     &__input-select {
       display: block;
       border-right: none;
+      font-size: 14px;
     }
 
     &__btn {
-      padding-right: 25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       border-top-left-radius: $line-height/2;
       border-bottom-left-radius: $line-height/2;
       border-top-right-radius: $line-height/2;
@@ -113,6 +115,10 @@
       background-color: var(--main-color);
       color: var(--text-color);
       cursor: pointer;
+
+      .fa-search {
+        line-height: $line-height;
+      }
 
       @media (min-width: 1024px) {
         flex-basis: 10%;

@@ -33,7 +33,7 @@ const Explorer = () => {
             type="text"
             name="searchPhrase"
             className="search-form__input-text"
-            placeholder="Serch phrase"
+            placeholder="Search phrase"
             value={searchState.searchPhrase}
             onChange={handleOnChange}
           />
@@ -61,7 +61,7 @@ const Explorer = () => {
             </select>
           </div>
           <button type="submit" className="search-form__btn">
-            Send
+            <i className="fas fa-search fa-2x"></i>
           </button>
         </form>
       </section>

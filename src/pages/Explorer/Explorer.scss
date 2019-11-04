@@ -37,10 +37,15 @@
     &__input-number,
     &__btn,
     &__select-tip {
-      padding-left: 20px;
-      padding-right: 20px;
       font-family: 'Roboto', sans-serif;
       font-size: 14px;
+    }
+
+    &__input-text,
+    &__input-number,
+    &__btn {
+      padding-left: 20px;
+      padding-right: 20px;
     }
 
     &__input-text,
@@ -73,7 +78,7 @@
       }
     }
 
-    &__input-text[name='url'] {
+    &__input-text[name='domain'] {
       @media (min-width: 1024px) {
         flex-basis: 30%;
         border-top-left-radius: $line-height/2;
@@ -126,5 +131,11 @@
         border-bottom-left-radius: 0;
       }
     }
+  }
+
+  &__results {
+    color: white;
+    font-weight: 300;
+    font-size: 12px;
   }
 }

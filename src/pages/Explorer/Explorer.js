@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import "./Explorer.scss";
 
 import SearchForm from "../../components/SearchForm/SearchForm";
-
-// Sekcje Results and Form zostaną rozbite na komponenty
+import PostList from "../../components/PostList/PostList";
 
 const Explorer = () => {
   const [fetchResult, setFetchResult] = useState({
@@ -63,10 +62,8 @@ const Explorer = () => {
       if (response.ok) {
         const data = await response.json();
         setFetchResult({ ...fetchResult, isLoading: false, data });
-        // console.log({ data });
       } else {
         const error = await response.json();
-        // console.error({ error });
         setFetchResult({ ...fetchResult, isLoading: false, error });
       }
     } catch (error) {
@@ -88,10 +85,7 @@ const Explorer = () => {
   const isSearchLimitValid = searchLimit =>
     searchLimit >= 5 && searchLimit <= 100;
 
-  // to be moved into PostsList
-  const renderPostItems = fetchData => {
-    const { isLoading, data, error } = fetchData;
-
+  const renderFetchResults = ({ isLoading, data, error }) => {
     if (isLoading) {
       return <h1>Loading data...</h1>;
     } else {
@@ -99,37 +93,15 @@ const Explorer = () => {
         return <h1>An Error has occured: {error}</h1>;
       }
       if (data) {
-        return (
-          <>
-            <h2>Found {data.posts.length} posts:</h2>
-            {data.posts.map(
-              ({ ID, author, date, modified, title, short_URL, excerpt }) => (
-                <div key={ID}>
-                  <div>{ID}</div>
-                  <p>{author.name}</p>
-                  <p>{date}</p>
-                  <p>{modified}</p>
-                  <p>{title}</p>
-                  <p>{short_URL}</p>
-                  <p>{excerpt}</p>
-                </div>
-              )
-            )}
-          </>
-        );
+        return <PostList {...data} />;
       }
     }
   };
 
   return (
     <div className="explorer">
-      <section className="explorer__search-box">
-        <SearchForm sendData={sendData} validateForm={validateForm} />
-      </section>
-      <section className="explorer__results">
-        <h1>Results</h1>
-        {renderPostItems(fetchResult)}
-      </section>
+      <SearchForm sendData={sendData} validateForm={validateForm} />
+      {renderFetchResults(fetchResult)}
     </div>
   );
 };

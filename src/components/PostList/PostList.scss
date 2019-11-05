@@ -1,0 +1,22 @@
+.post-list {
+  padding-top: 50px;
+  padding-bottom: 25px;
+
+  &__heading,
+  &__info {
+    text-align: center;
+    color: var(--beige-color);
+  }
+
+  &__heading {
+    font-weight: 400;
+    font-size: 35px;
+    margin: 0.5em 0;
+  }
+
+  &__info {
+    font-weight: 300;
+    font-size: 25px;
+    margin: 0.25em 0;
+  }
+}

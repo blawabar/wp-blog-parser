@@ -40,34 +40,38 @@ const Explorer = () => {
 
     if (errors.length) {
       // TODO: add an implementation for a ModalWindow
-      alert(errors.join(""));
+      alert(errors.join("\n"));
     }
 
     return !errors.length;
   };
 
-  const sendData = ({ domain, searchPhrase, searchLimit, orderBy }) => {
+  const sendData = (
+    { domain, searchPhrase, searchLimit, orderBy },
+    callback
+  ) => {
     const baseURL = createBaseURL(domain);
     const queryParams = createQueryParams(searchPhrase, searchLimit, orderBy);
 
-    sendRequest(baseURL, queryParams);
+    sendRequest(baseURL, queryParams, callback);
   };
 
-  const sendRequest = async (url, queryParams) => {
+  const sendRequest = async (url, queryParams, callback) => {
     try {
       setFetchResult({ isLoading: true, data: null, error: null });
 
       const response = await fetch(`${url}&${queryParams}`);
 
       if (response.ok) {
+        callback();
         const data = await response.json();
-        setFetchResult({ ...fetchResult, isLoading: false, data });
+        setFetchResult({ isLoading: false, data, error: null });
       } else {
         const error = await response.json();
-        setFetchResult({ ...fetchResult, isLoading: false, error });
+        setFetchResult({ isLoading: false, data: null, error });
       }
     } catch (error) {
-      console.error({ error });
+      setFetchResult({ isLoading: false, data: null, error });
     }
   };
 
@@ -87,10 +91,18 @@ const Explorer = () => {
 
   const renderFetchResults = ({ isLoading, data, error }) => {
     if (isLoading) {
-      return <h1>Loading data...</h1>;
+      return (
+        <h1 className="explorer__fetch-info explorer__fetch-info--is-loading">
+          Loading data...
+        </h1>
+      );
     } else {
       if (error) {
-        return <h1>An Error has occured: {error}</h1>;
+        return (
+          <h1 className="explorer__fetch-info explorer__fetch-info--has-error">
+            Fetch error: {error.message}
+          </h1>
+        );
       }
       if (data) {
         return <PostList {...data} />;

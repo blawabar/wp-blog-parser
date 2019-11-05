@@ -2,13 +2,17 @@ import React, { useState } from "react";
 
 import "./SearchForm.scss";
 
+const INITIAL_STATE = {
+  domain: "",
+  searchPhrase: "",
+  searchLimit: 5,
+  orderBy: "date"
+};
+
 const SearchForm = ({ sendData, validateForm }) => {
-  const [searchData, setSearchData] = useState({
-    domain: "",
-    searchPhrase: "",
-    searchLimit: 5,
-    orderBy: "date"
-  });
+  const [searchData, setSearchData] = useState(INITIAL_STATE);
+
+  const resetForm = () => setSearchData(INITIAL_STATE);
 
   const handleOnChange = evt => {
     const { name, value } = evt.target;
@@ -25,7 +29,7 @@ const SearchForm = ({ sendData, validateForm }) => {
     const formIsValid = validateForm(domain, searchLimit);
 
     if (formIsValid) {
-      sendData(searchData);
+      sendData(searchData, resetForm);
     }
   };
 
@@ -36,7 +40,7 @@ const SearchForm = ({ sendData, validateForm }) => {
         name="domain"
         className="search-form__input-text"
         placeholder="Wordpress domain"
-        value={searchData.url}
+        value={searchData.domain}
         onChange={handleOnChange}
       />
       <input

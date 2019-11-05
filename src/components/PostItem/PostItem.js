@@ -16,7 +16,7 @@ const PostItem = ({
   const shortModified = modified.substring(0, 10);
 
   const renderImage = attachments => {
-    let imgSrc = require("../../img/logo192.png");
+    let imgSrc = require("../../img/article-150.png");
 
     const keys = Object.keys(attachments);
     if (keys.length) {

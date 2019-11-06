@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import "./Explorer.scss";
 
@@ -17,6 +17,22 @@ const Explorer = () => {
 
   const [isShowingModal, setIsShowingModal] = useState(false);
   const [errors, setErrors] = useState([]);
+
+  const loadingRef = useRef(null);
+  const errorRef = useRef(null);
+  const resultRef = useRef(null);
+
+  useEffect(() => {
+    const { isLoading, data, error } = fetchResult;
+
+    if (isLoading && loadingRef) {
+      loadingRef.current.scrollIntoView({ behavior: "smooth", start: "block" });
+    } else if (data && resultRef) {
+      resultRef.current.scrollIntoView({ behavior: "smooth", start: "block" });
+    } else if (error && errorRef) {
+      errorRef.current.scrollIntoView({ behavior: "smooth", start: "block" });
+    }
+  }, [fetchResult]);
 
   const toggleModal = () => setIsShowingModal(!isShowingModal);
 
@@ -76,10 +92,12 @@ const Explorer = () => {
         const data = await response.json();
         setFetchResult({ isLoading: false, data, error: null });
       } else {
+        callback(false);
         const error = await response.json();
         setFetchResult({ isLoading: false, data: null, error });
       }
     } catch (error) {
+      callback(false);
       setFetchResult({ isLoading: false, data: null, error });
     }
   };
@@ -101,27 +119,36 @@ const Explorer = () => {
   const renderFetchResults = ({ isLoading, data, error }) => {
     if (isLoading) {
       return (
-        <h1 className="explorer__fetch-info explorer__fetch-info--is-loading">
+        <h1
+          ref={loadingRef}
+          className="explorer__fetch-info explorer__fetch-info--is-loading"
+        >
           Loading data...
         </h1>
       );
     } else {
       if (error) {
         return (
-          <h1 className="explorer__fetch-info explorer__fetch-info--has-error">
+          <h1
+            ref={errorRef}
+            className="explorer__fetch-info explorer__fetch-info--has-error"
+          >
             Fetch error: {error.message}
           </h1>
         );
       }
       if (data) {
-        return <PostList {...data} />;
+        return (
+          <div ref={resultRef}>
+            <PostList {...data} />
+          </div>
+        );
       }
     }
   };
 
   return (
     <div className="explorer">
-      {console.log({ errors })}
       {isShowingModal && (
         <ModalPane>
           <ModalWindow errorList={errors} toggleModal={toggleModal} />

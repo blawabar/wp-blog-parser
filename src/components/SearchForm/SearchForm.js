@@ -13,8 +13,10 @@ const SearchForm = ({ sendData, validateForm }) => {
   const [searchData, setSearchData] = useState(INITIAL_STATE);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const resetForm = () => {
-    setSearchData(INITIAL_STATE);
+  const releaseForm = (initialState = true) => {
+    if (initialState) {
+      setSearchData(INITIAL_STATE);
+    }
     setIsSubmitting(false);
   };
 
@@ -34,7 +36,7 @@ const SearchForm = ({ sendData, validateForm }) => {
 
     if (formIsValid) {
       setIsSubmitting(true);
-      sendData(searchData, resetForm);
+      sendData(searchData, releaseForm);
     }
   };
 

@@ -2,6 +2,9 @@ import React, { useState } from "react";
 
 import "./Explorer.scss";
 
+import ModalPane from "../../components/ModalPane/ModalPane";
+import ModalWindow from "../../components/ModalWindow/ModalWindow";
+
 import SearchForm from "../../components/SearchForm/SearchForm";
 import PostList from "../../components/PostList/PostList";
 
@@ -11,6 +14,11 @@ const Explorer = () => {
     data: null,
     error: null
   });
+
+  const [isShowingModal, setIsShowingModal] = useState(false);
+  const [errors, setErrors] = useState([]);
+
+  const toggleModal = () => setIsShowingModal(!isShowingModal);
 
   const createBaseURL = blogDomain =>
     `https://public-api.wordpress.com/rest/v1.1/sites/${blogDomain}/posts/?fields=ID,author,date,modified,title,short_URL,excerpt,attachments`;
@@ -30,6 +38,7 @@ const Explorer = () => {
 
   const validateForm = (domain, searchLimit) => {
     const errors = [];
+
     if (!isDomainNameValid(domain)) {
       errors.push("Please enter a valid domain name (max. 100 chars.)");
     }
@@ -39,8 +48,8 @@ const Explorer = () => {
     }
 
     if (errors.length) {
-      // TODO: add an implementation for a ModalWindow
-      alert(errors.join("\n"));
+      setErrors(errors);
+      setIsShowingModal(true);
     }
 
     return !errors.length;
@@ -112,6 +121,12 @@ const Explorer = () => {
 
   return (
     <div className="explorer">
+      {console.log({ errors })}
+      {isShowingModal && (
+        <ModalPane>
+          <ModalWindow errorList={errors} toggleModal={toggleModal} />
+        </ModalPane>
+      )}
       <SearchForm sendData={sendData} validateForm={validateForm} />
       {renderFetchResults(fetchResult)}
     </div>

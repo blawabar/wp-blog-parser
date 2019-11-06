@@ -11,8 +11,12 @@ const INITIAL_STATE = {
 
 const SearchForm = ({ sendData, validateForm }) => {
   const [searchData, setSearchData] = useState(INITIAL_STATE);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const resetForm = () => setSearchData(INITIAL_STATE);
+  const resetForm = () => {
+    setSearchData(INITIAL_STATE);
+    setIsSubmitting(false);
+  };
 
   const handleOnChange = evt => {
     const { name, value } = evt.target;
@@ -29,6 +33,7 @@ const SearchForm = ({ sendData, validateForm }) => {
     const formIsValid = validateForm(domain, searchLimit);
 
     if (formIsValid) {
+      setIsSubmitting(true);
       sendData(searchData, resetForm);
     }
   };
@@ -42,6 +47,7 @@ const SearchForm = ({ sendData, validateForm }) => {
         placeholder="Wordpress domain"
         value={searchData.domain}
         onChange={handleOnChange}
+        disabled={isSubmitting}
       />
       <input
         type="text"
@@ -50,6 +56,7 @@ const SearchForm = ({ sendData, validateForm }) => {
         placeholder="Search phrase"
         value={searchData.searchPhrase}
         onChange={handleOnChange}
+        disabled={isSubmitting}
       />
       <input
         type="number"
@@ -60,6 +67,7 @@ const SearchForm = ({ sendData, validateForm }) => {
         max="100"
         value={searchData.searchLimit}
         onChange={handleOnChange}
+        disabled={isSubmitting}
       />
       <div className="search-form__input-holder">
         <div className="search-form__select-tip">Sort by: </div>
@@ -68,13 +76,18 @@ const SearchForm = ({ sendData, validateForm }) => {
           className="search-form__input-select"
           value={searchData.orderBy}
           onChange={handleOnChange}
+          disabled={isSubmitting}
         >
           <option value="date">Date</option>
           <option value="modified">Modification</option>
           <option value="title">Title</option>
         </select>
       </div>
-      <button type="submit" className="search-form__btn">
+      <button
+        type="submit"
+        className="search-form__btn"
+        disabled={isSubmitting}
+      >
         <i className="fas fa-search fa-2x"></i>
       </button>
     </form>

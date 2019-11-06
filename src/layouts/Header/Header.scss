@@ -8,15 +8,18 @@
   &__logo {
     display: none;
 
-    @media (min-width: 1024px) {
+    @media (min-width: 768px) {
       display: block;
       margin: 0 auto;
     }
   }
 
   &__title {
-    margin-top: 1.25em;
     font-size: 45px;
+
+    @media (min-width: 768px) {
+      margin-top: 1.25em;
+    }
   }
 
   &__sub-title {

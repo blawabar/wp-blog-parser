@@ -13,10 +13,7 @@ const SearchForm = ({ sendData, validateForm }) => {
   const [searchData, setSearchData] = useState(INITIAL_STATE);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const releaseForm = (initialState = true) => {
-    if (initialState) {
-      setSearchData(INITIAL_STATE);
-    }
+  const releaseForm = () => {
     setIsSubmitting(false);
   };
 

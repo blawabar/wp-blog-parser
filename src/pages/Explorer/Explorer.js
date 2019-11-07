@@ -92,12 +92,12 @@ const Explorer = () => {
         const data = await response.json();
         setFetchResult({ isLoading: false, data, error: null });
       } else {
-        callback(false);
+        callback();
         const error = await response.json();
         setFetchResult({ isLoading: false, data: null, error });
       }
     } catch (error) {
-      callback(false);
+      callback();
       setFetchResult({ isLoading: false, data: null, error });
     }
   };

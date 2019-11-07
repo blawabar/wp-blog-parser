@@ -8,6 +8,8 @@ import ModalWindow from "../../components/ModalWindow/ModalWindow";
 import SearchForm from "../../components/SearchForm/SearchForm";
 import PostList from "../../components/PostList/PostList";
 
+const CACHED_STATE = "fetchState";
+
 const Explorer = () => {
   const [fetchResult, setFetchResult] = useState({
     isLoading: false,
@@ -25,9 +27,23 @@ const Explorer = () => {
   useEffect(() => {
     const { isLoading, data, error } = fetchResult;
 
-    if (isLoading && loadingRef) {
+    const isFirstTime = !isLoading && !data && !error;
+
+    // 0. Check if it is first time by assuring that all fetchResult fields are set to null
+    if (isFirstTime) {
+      // 1. Check session storage
+      const cachedState = sessionStorage.getItem(CACHED_STATE);
+      console.log({ cachedState });
+
+      // 2. If it has data use it to update state
+      if (cachedState) {
+        setFetchResult({ ...fetchResult, data: JSON.parse(cachedState) });
+      }
+    } else if (isLoading && loadingRef) {
       loadingRef.current.scrollIntoView({ behavior: "smooth", start: "block" });
     } else if (data && resultRef) {
+      // 3. Persist data into sessionStorage
+      sessionStorage.setItem(CACHED_STATE, JSON.stringify(data));
       resultRef.current.scrollIntoView({ behavior: "smooth", start: "block" });
     } else if (error && errorRef) {
       errorRef.current.scrollIntoView({ behavior: "smooth", start: "block" });

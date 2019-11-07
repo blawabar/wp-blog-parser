@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./SearchForm.scss";
 
@@ -9,9 +9,19 @@ const INITIAL_STATE = {
   orderBy: "date"
 };
 
+const CACHED_STATE = "searchFormState";
+
 const SearchForm = ({ sendData, validateForm }) => {
   const [searchData, setSearchData] = useState(INITIAL_STATE);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    const cachedState = sessionStorage.getItem(CACHED_STATE);
+
+    if (cachedState) {
+      setSearchData(JSON.parse(cachedState));
+    }
+  }, []);
 
   const releaseForm = () => {
     setIsSubmitting(false);
@@ -32,6 +42,7 @@ const SearchForm = ({ sendData, validateForm }) => {
     const formIsValid = validateForm(domain, searchLimit);
 
     if (formIsValid) {
+      sessionStorage.setItem(CACHED_STATE, JSON.stringify(searchData));
       setIsSubmitting(true);
       sendData(searchData, releaseForm);
     }

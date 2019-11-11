@@ -56,8 +56,19 @@
 
   &__footer {
     padding: 25px 0;
-  }
+    a {
+      font-size: 18px;
+      text-decoration: none;
+      color: var(--main-color);
+      box-shadow: 0 2px 0 0 var(--main-color);
+      transition: box-shadow 0.25s;
 
+      &:hover {
+        box-shadow: 0 5px 0 0 var(--main-color);
+      }
+    }
+  }
+  // TODO: it is a good candidate for a mixin 'hyper-link'
   &__link {
     font-size: 18px;
     text-decoration: none;

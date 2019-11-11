@@ -33,7 +33,6 @@ const Explorer = () => {
     if (isFirstTime) {
       // 1. Check session storage
       const cachedState = sessionStorage.getItem(CACHED_STATE);
-      console.log({ cachedState });
 
       // 2. If it has data use it to update state
       if (cachedState) {
@@ -53,7 +52,7 @@ const Explorer = () => {
   const toggleModal = () => setIsShowingModal(!isShowingModal);
 
   const createBaseURL = blogDomain =>
-    `https://public-api.wordpress.com/rest/v1.1/sites/${blogDomain}/posts/?fields=ID,author,date,modified,title,short_URL,excerpt,attachments`;
+    `https://public-api.wordpress.com/rest/v1.1/sites/${blogDomain}/posts/?fields=ID,site_ID,author,date,modified,title,short_URL,excerpt,attachments`;
 
   const createQueryParams = (searchPhrase, searchLimit, orderBy) => {
     const queryParams = new URLSearchParams({
@@ -97,6 +96,7 @@ const Explorer = () => {
     sendRequest(baseURL, queryParams, callback);
   };
 
+  // TODO: it's a good candidate for a custom hook
   const sendRequest = async (url, queryParams, callback) => {
     try {
       setFetchResult({ isLoading: true, data: null, error: null });

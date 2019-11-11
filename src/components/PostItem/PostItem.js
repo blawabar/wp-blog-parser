@@ -1,15 +1,17 @@
 import React from "react";
 
+import { Link } from "react-router-dom";
+
 import "./PostItem.scss";
 
 const PostItem = ({
+  site_ID,
   ID,
   author,
   date,
   modified,
   title,
   excerpt,
-  short_URL,
   attachments
 }) => {
   const shortDate = date.substring(0, 10);
@@ -47,9 +49,7 @@ const PostItem = ({
         </header>
         <section className="post-item__body">{parseContent(excerpt)}</section>
         <footer className="post-item__footer">
-          <a href={short_URL} target="blank" className="post-item__link">
-            Read full article
-          </a>
+          <Link to={`/${site_ID}/${ID}`}>Go to Post Content</Link>
         </footer>
       </section>
     </div>

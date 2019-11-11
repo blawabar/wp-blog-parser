@@ -11,7 +11,7 @@ const PageContainer = () => {
     <div className="page-container">
       <Switch>
         <Route exact path="/" component={Explorer} />
-        <Route exact path="/:postId" component={PostContent} />
+        <Route exact path="/:siteId/:postId" component={PostContent} />
       </Switch>
     </div>
   );

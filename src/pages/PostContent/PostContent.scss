@@ -1,2 +1,128 @@
 .post-content {
+  padding: 10px 15px;
+  background-color: var(--beige-color);
+
+  @media (min-width: 640px) {
+    padding: 15px 30px;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 20px 40px;
+  }
+
+  &__header {
+    margin-bottom: 35px;
+  }
+
+  &__title {
+    font-size: 25px;
+    margin: 0.2em 0 0.6em 0;
+
+    @media (min-width: 768px) {
+      font-size: 35px;
+    }
+
+    @media (min-width: 1024px) {
+      font-size: 42px;
+    }
+  }
+
+  &__info-list {
+    list-style: none;
+
+    @media (min-width: 568px) {
+      display: flex;
+    }
+  }
+
+  &__info-item + &__info-item {
+    margin-top: 10px;
+
+    @media (min-width: 568px) {
+      margin-top: 0;
+      margin-left: 50px;
+    }
+  }
+
+  &__info-heading {
+    font-weight: 400;
+  }
+
+  &__info-heading,
+  &__info-text {
+    font-size: 14px;
+
+    @media (min-width: 768px) {
+      font-size: 16px;
+    }
+  }
+
+  &__body {
+    span,
+    p {
+      font-size: 15px !important;
+      line-height: 1.5 !important;
+      text-align: justify !important;
+
+      @media (min-width: 768px) {
+        font-size: 18px !important;
+      }
+
+      @media (min-width: 1024px) {
+        font-size: 20px !important;
+      }
+    }
+
+    img {
+      display: block !important;
+      margin: 15px auto !important;
+      max-width: 75% !important;
+    }
+
+    p {
+      & + p {
+        margin: 20px 0 !important;
+      }
+    }
+  }
+
+  &__footer {
+    padding: 25px 0;
+    display: flex;
+    justify-content: space-between;
+
+    a {
+      display: block;
+      font-size: 14px;
+      text-decoration: none;
+      color: var(--main-color);
+      box-shadow: 0 2px 0 0 var(--main-color);
+      transition: box-shadow 0.25s;
+
+      @media (min-width: 768px) {
+        font-size: 16px;
+      }
+
+      &:hover {
+        box-shadow: 0 5px 0 0 var(--main-color);
+      }
+    }
+  }
+
+  // TODO: mixin candidate,
+  &__message {
+    margin: 25px 0 75px 0;
+
+    font-weight: 400;
+    font-size: 25px;
+    text-align: center;
+
+    &--is-loading {
+      color: var(--beige-color);
+    }
+
+    &--has-error {
+      color: var(--error-color);
+    }
+  }
 }

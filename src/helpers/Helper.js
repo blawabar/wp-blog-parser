@@ -1,5 +1,8 @@
 import React from "react";
 
+import ModalPane from "../components/ModalPane/ModalPane";
+import ModalWindow from "../components/ModalWindow/ModalWindow";
+
 class Helper {
   static domParser = new DOMParser();
 
@@ -36,6 +39,26 @@ class Helper {
     if (ref) {
       ref.current.scrollIntoView({ behavior: "smooth", start: "block" });
     }
+  };
+
+  static showModal = (title, messages, state, stateHandler) => {
+    if (state) {
+      return (
+        <ModalPane>
+          <ModalWindow
+            title={title}
+            errorList={messages}
+            toggleModal={stateHandler}
+          />
+        </ModalPane>
+      );
+    }
+
+    return null;
+  };
+
+  static showInfo = infoMessage => {
+    return <ModalPane>{infoMessage}</ModalPane>;
   };
 }
 

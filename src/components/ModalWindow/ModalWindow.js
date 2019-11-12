@@ -2,9 +2,7 @@ import React from "react";
 
 import "./ModalWindow.scss";
 
-const ModalWindow = ({ errorList, toggleModal }) => {
-  console.log({ errorList });
-
+const ModalWindow = ({ title, errorList, toggleModal }) => {
   const renderErrorList = () => {
     return (
       <ol className="modal-window__error-list">
@@ -19,7 +17,7 @@ const ModalWindow = ({ errorList, toggleModal }) => {
   return (
     <div className="modal-window">
       <header className="modal-window__header">
-        <h2 className="modal-window__title">Form Validation Error</h2>
+        <h2 className="modal-window__title">{title}</h2>
       </header>
       <section className="modal-window__body">{renderErrorList()}</section>
       <button className="modal-window__btn" onClick={toggleModal}>

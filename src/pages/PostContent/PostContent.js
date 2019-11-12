@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -9,6 +9,8 @@ import useFetch from "../../hooks/useFetch";
 
 const PostContent = props => {
   const { siteId, postId } = props.match.params;
+  const [isShowingModal, setIsShowingModal] = useState(false);
+
   const baseURL = `https://public-api.wordpress.com/rest/v1.1/sites/${siteId}/posts/${postId}/`;
   const queryParams = Helper.createQueryParams({
     fields: "author,date,modified,title,short_URL,content"
@@ -16,7 +18,17 @@ const PostContent = props => {
 
   const { isLoading, data, error } = useFetch(baseURL, queryParams, true);
 
+  useEffect(() => {
+    if (error) {
+      setIsShowingModal(true);
+    }
+  }, [error]);
+
   const renderHeader = (author, date, modified, title) => {
+    const shortDate = Helper.extractDate(date);
+    const shortModified = Helper.extractDate(modified);
+    const displayModifed = Helper.datesAreDifferent(shortDate, shortModified);
+
     return (
       <header className="post-content__header">
         <h1 className="post-content__title">
@@ -29,14 +41,14 @@ const PostContent = props => {
           </li>
           <li className="post-content__info-item">
             <h3 className="post-content__info-heading">Published</h3>
-            <h3 className="post-content__info-text">{date.substring(0, 10)}</h3>
+            <h3 className="post-content__info-text">{shortDate}</h3>
           </li>
-          <li className="post-content__info-item">
-            <h3 className="post-content__info-heading">Last modified</h3>
-            <h3 className="post-content__info-text">
-              {modified.substring(0, 10)}
-            </h3>
-          </li>
+          {displayModifed && (
+            <li className="post-content__info-item">
+              <h3 className="post-content__info-heading">Last modified</h3>
+              <h3 className="post-content__info-text">{shortModified}</h3>
+            </li>
+          )}
         </ul>
       </header>
     );
@@ -76,26 +88,18 @@ const PostContent = props => {
   let content = null;
 
   if (isLoading) {
-    content = (
-      <h1 className="post-content__message post-content__message--is-loading">
-        Loading post content...
-      </h1>
-    );
+    content = Helper.showInfo("Loading post content...");
   } else if (data) {
     content = renderPostContent(data);
   } else if (error) {
-    content = (
-      <>
-        <h1 className="post-content__message post-content__message--has-error">
-          Error durring fetch: {error.message}
-        </h1>
-        <h2 className="post-content__message post-content__message--has-error">
-          Redirecting to the main page in 5 secs.
-        </h2>
-        {setTimeout(() => {
-          props.history.push("/");
-        }, 5000)}
-      </>
+    content = Helper.showModal(
+      "Error during fetch",
+      [error.message],
+      isShowingModal,
+      () => {
+        setIsShowingModal(false);
+        props.history.push("/");
+      }
     );
   }
 

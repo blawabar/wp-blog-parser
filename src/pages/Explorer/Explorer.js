@@ -2,11 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 
 import "./Explorer.scss";
 
-import ModalPane from "../../components/ModalPane/ModalPane";
-import ModalWindow from "../../components/ModalWindow/ModalWindow";
-
 import SearchForm from "../../components/SearchForm/SearchForm";
 import PostList from "../../components/PostList/PostList";
+
+import Helper from "../../helpers/Helper";
 
 const CACHED_STATE = "fetchState";
 
@@ -20,8 +19,6 @@ const Explorer = () => {
   const [isShowingModal, setIsShowingModal] = useState(false);
   const [errors, setErrors] = useState([]);
 
-  const loadingRef = useRef(null);
-  const errorRef = useRef(null);
   const resultRef = useRef(null);
 
   useEffect(() => {
@@ -38,18 +35,14 @@ const Explorer = () => {
       if (cachedState) {
         setFetchResult({ ...fetchResult, data: JSON.parse(cachedState) });
       }
-    } else if (isLoading && loadingRef) {
-      loadingRef.current.scrollIntoView({ behavior: "smooth", start: "block" });
-    } else if (data && resultRef) {
+    } else if (data) {
       // 3. Persist data into sessionStorage
       sessionStorage.setItem(CACHED_STATE, JSON.stringify(data));
-      resultRef.current.scrollIntoView({ behavior: "smooth", start: "block" });
-    } else if (error && errorRef) {
-      errorRef.current.scrollIntoView({ behavior: "smooth", start: "block" });
+      Helper.scrollToElement(resultRef);
+    } else if (error) {
+      setIsShowingModal(true);
     }
   }, [fetchResult]);
-
-  const toggleModal = () => setIsShowingModal(!isShowingModal);
 
   const createBaseURL = blogDomain =>
     `https://public-api.wordpress.com/rest/v1.1/sites/${blogDomain}/posts/?fields=ID,site_ID,author,date,modified,title,short_URL,excerpt,attachments`;
@@ -66,6 +59,21 @@ const Explorer = () => {
 
     return queryParams.toString();
   };
+
+  // TODO: to be moved into SearchForm ??? => START
+  const isDomainNameValid = domainName => {
+    const regExp = /^[a-z0-9][a-z0-9-]*[a-z0-9](\.[a-z0-9]+[a-z0-9-]*[a-z0-9]+)*\.[a-z][a-z]*[a-z]$/;
+    regExp.test(domainName);
+
+    return (
+      regExp.test(domainName) &&
+      domainName.length >= 4 &&
+      domainName.length <= 100
+    );
+  };
+
+  const isSearchLimitValid = searchLimit =>
+    searchLimit >= 5 && searchLimit <= 100;
 
   const validateForm = (domain, searchLimit) => {
     const errors = [];
@@ -85,6 +93,8 @@ const Explorer = () => {
 
     return !errors.length;
   };
+
+  // TODO: to be moved into SearchForm ??? <= END
 
   const sendData = (
     { domain, searchPhrase, searchLimit, orderBy },
@@ -118,39 +128,17 @@ const Explorer = () => {
     }
   };
 
-  const isDomainNameValid = domainName => {
-    const regExp = /^[a-z0-9][a-z0-9-]*[a-z0-9](\.[a-z0-9]+[a-z0-9-]*[a-z0-9]+)*\.[a-z][a-z]*[a-z]$/;
-    regExp.test(domainName);
-
-    return (
-      regExp.test(domainName) &&
-      domainName.length >= 4 &&
-      domainName.length <= 100
-    );
-  };
-
-  const isSearchLimitValid = searchLimit =>
-    searchLimit >= 5 && searchLimit <= 100;
-
   const renderFetchResults = ({ isLoading, data, error }) => {
     if (isLoading) {
-      return (
-        <h1
-          ref={loadingRef}
-          className="explorer__fetch-info explorer__fetch-info--is-loading"
-        >
-          Loading data...
-        </h1>
-      );
+      return Helper.showInfo("Loading posts data...");
     } else {
       if (error) {
-        return (
-          <h1
-            ref={errorRef}
-            className="explorer__fetch-info explorer__fetch-info--has-error"
-          >
-            Fetch error: {error.message}
-          </h1>
+        /* Hmm... I think it will be moved into SearchForm... */
+        return Helper.showModal(
+          "Fetch error",
+          [error.message],
+          isShowingModal,
+          () => setIsShowingModal(false)
         );
       }
       if (data) {
@@ -165,11 +153,11 @@ const Explorer = () => {
 
   return (
     <div className="explorer">
-      {isShowingModal && (
-        <ModalPane>
-          <ModalWindow errorList={errors} toggleModal={toggleModal} />
-        </ModalPane>
+      {/* Hmm... I think it will be moved into SearchForm... */}
+      {Helper.showModal("Form Validation Error", [errors], isShowingModal, () =>
+        setIsShowingModal(false)
       )}
+
       <SearchForm sendData={sendData} validateForm={validateForm} />
       {renderFetchResults(fetchResult)}
     </div>

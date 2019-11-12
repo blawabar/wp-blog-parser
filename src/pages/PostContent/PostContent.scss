@@ -15,8 +15,9 @@
   }
 
   &__title {
-    font-size: 25px;
     margin: 0.2em 0 0.6em 0;
+    font-size: 25px;
+    font-weight: 400;
 
     @media (min-width: 768px) {
       font-size: 35px;
@@ -58,25 +59,45 @@
   }
 
   &__body {
+    font-weight: 300 !important;
+
     span,
     p {
-      font-size: 15px !important;
+      font-size: 14px !important;
       line-height: 1.5 !important;
       text-align: justify !important;
 
       @media (min-width: 768px) {
-        font-size: 18px !important;
+        font-size: 16px !important;
       }
 
       @media (min-width: 1024px) {
+        font-size: 18px !important;
+      }
+
+      @media (min-width: 1440px) {
         font-size: 20px !important;
       }
+    }
+
+    div,
+    section {
+      width: auto !important;
     }
 
     img {
       display: block !important;
       margin: 15px auto !important;
-      max-width: 75% !important;
+      width: 75% !important;
+      height: auto !important;
+
+      @media (min-width: 768px) {
+        width: 50% !important;
+      }
+
+      @media (min-width: 1024px) {
+        width: 37.5% !important;
+      }
     }
 
     p {
@@ -106,23 +127,6 @@
       &:hover {
         box-shadow: 0 5px 0 0 var(--main-color);
       }
-    }
-  }
-
-  // TODO: mixin candidate,
-  &__message {
-    margin: 25px 0 75px 0;
-
-    font-weight: 400;
-    font-size: 25px;
-    text-align: center;
-
-    &--is-loading {
-      color: var(--beige-color);
-    }
-
-    &--has-error {
-      color: var(--error-color);
     }
   }
 }

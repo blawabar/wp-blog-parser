@@ -20,6 +20,18 @@ class Helper {
     return body ? { __html: body.innerHTML } : <h1>Nothing has been found</h1>;
   };
 
+  static extractDate = dateAsString => {
+    if (typeof dateAsString === "string") {
+      return dateAsString.substring(0, 10);
+    }
+
+    return "";
+  };
+
+  static datesAreDifferent = (date1, date2) => {
+    return date1.localeCompare(date2) !== 0;
+  };
+
   static scrollToElement = ref => {
     if (ref) {
       ref.current.scrollIntoView({ behavior: "smooth", start: "block" });

@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 
 import "./PostItem.scss";
 
+import Helper from "../../helpers/Helper";
+
 const PostItem = ({
   site_ID,
   ID,
@@ -14,8 +16,8 @@ const PostItem = ({
   excerpt,
   attachments
 }) => {
-  const shortDate = date.substring(0, 10);
-  const shortModified = modified.substring(0, 10);
+  const shortDate = Helper.extractDate(date);
+  const shortModified = Helper.extractDate(modified);
 
   const renderImage = attachments => {
     let imgSrc = require("../../img/article-150.png");
@@ -28,11 +30,6 @@ const PostItem = ({
     return imgSrc;
   };
 
-  const parseContent = content => {
-    return new DOMParser().parseFromString(content, "text/html").documentElement
-      .innerText;
-  };
-
   return (
     <div className="post-item">
       <img className="post-item__image" src={renderImage(attachments)} alt="" />
@@ -41,13 +38,15 @@ const PostItem = ({
           <p className="post-item__author">{author.name}</p>
           <p className="post-item__date">
             {shortDate}{" "}
-            {shortDate !== shortModified
-              ? ` (last modified on:${shortModified.substring(0, 10)})`
+            {Helper.datesAreDifferent(shortDate, shortModified)
+              ? ` (last modified on: ${shortModified})`
               : null}
           </p>
-          <h2 className="post-item__title">{parseContent(title)}</h2>
+          <h2 className="post-item__title">{Helper.parseTextContent(title)}</h2>
         </header>
-        <section className="post-item__body">{parseContent(excerpt)}</section>
+        <section className="post-item__body">
+          {Helper.parseTextContent(excerpt)}
+        </section>
         <footer className="post-item__footer">
           <Link to={`/${site_ID}/${ID}`}>Go to Post Content</Link>
         </footer>

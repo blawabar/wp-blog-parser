@@ -28,8 +28,9 @@ const PostList = ({ queryData }) => {
       if (cachedState) {
         setCachedData(JSON.parse(cachedState));
       }
-    } else if (cachedData) {
+    } else if (cachedData && resultRef.current) {
       // 3. Scroll to list
+      console.log({ cachedData, resultRef });
       Helper.scrollToElement(resultRef);
     }
 

@@ -27,7 +27,7 @@ const PostContent = props => {
   useEffect(() => {
     if (error) {
       setIsShowingModal(true);
-    } else if (data) {
+    } else if (data && resultRef.current) {
       Helper.scrollToElement(resultRef);
     }
   }, [error, data]);

@@ -80,12 +80,10 @@ const SearchForm = ({ setQueryData }) => {
         fields:
           "ID,site_ID,author,date,modified,title,short_URL,excerpt,attachments",
         number: searchLimit,
-        order_by: orderBy
+        order_by: orderBy,
+        search: searchPhrase
       });
 
-      if (searchPhrase) {
-        queryParams.set("search", searchPhrase);
-      }
       setQueryData({ baseURL, queryParams });
     }
   };

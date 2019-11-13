@@ -41,14 +41,14 @@ class Helper {
     }
   };
 
-  static showModal = (title, messages, state, stateHandler) => {
-    if (state) {
+  static showModal = (title, messages, condition, toggleModal) => {
+    if (condition) {
       return (
         <ModalPane>
           <ModalWindow
             title={title}
             errorList={messages}
-            toggleModal={stateHandler}
+            toggleModal={toggleModal}
           />
         </ModalPane>
       );

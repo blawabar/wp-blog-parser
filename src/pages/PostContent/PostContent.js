@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -10,19 +10,27 @@ import useFetch from "../../hooks/useFetch";
 const PostContent = props => {
   const { siteId, postId } = props.match.params;
   const [isShowingModal, setIsShowingModal] = useState(false);
+  const resultRef = useRef(null);
 
-  const baseURL = `https://public-api.wordpress.com/rest/v1.1/sites/${siteId}/posts/${postId}/`;
-  const queryParams = Helper.createQueryParams({
-    fields: "author,date,modified,title,short_URL,content"
-  });
+  const queryData = {
+    baseURL: `https://public-api.wordpress.com/rest/v1.1/sites/${siteId}/posts/${postId}/`,
+    queryParams: Helper.createQueryParams({
+      fields: "author,date,modified,title,short_URL,content"
+    })
+  };
 
-  const { isLoading, data, error } = useFetch(baseURL, queryParams, true);
+  const { isLoading, data, error } = useFetch(queryData, true, [
+    queryData.baseURL,
+    queryData.queryParams
+  ]);
 
   useEffect(() => {
     if (error) {
       setIsShowingModal(true);
+    } else if (data) {
+      Helper.scrollToElement(resultRef);
     }
-  }, [error]);
+  }, [error, data]);
 
   const renderHeader = (author, date, modified, title) => {
     const shortDate = Helper.extractDate(date);
@@ -59,6 +67,7 @@ const PostContent = props => {
       <section
         className="post-content__body"
         dangerouslySetInnerHTML={Helper.parseHTMLContent(content)}
+        ref={resultRef}
       ></section>
     );
   };
@@ -77,7 +86,7 @@ const PostContent = props => {
   const renderPostContent = data => {
     const { author, date, modified, title, short_URL, content } = data;
     return (
-      <div className="post-content">
+      <div className="post-content" ref={resultRef}>
         {renderHeader(author, date, modified, title)}
         {renderBody(content)}
         {renderFooter(short_URL)}

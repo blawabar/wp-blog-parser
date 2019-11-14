@@ -2,6 +2,7 @@ import React from "react";
 
 import ModalPane from "../components/ModalPane/ModalPane";
 import ModalWindow from "../components/ModalWindow/ModalWindow";
+import AnimatedInfo from "../components/AnimatedInfo/AnimatedInfo";
 
 class Helper {
   static domParser = new DOMParser();
@@ -58,7 +59,11 @@ class Helper {
   };
 
   static showInfo = infoMessage => {
-    return <ModalPane>{infoMessage}</ModalPane>;
+    return (
+      <ModalPane>
+        <AnimatedInfo textMessage={infoMessage} />
+      </ModalPane>
+    );
   };
 }
 

@@ -1,0 +1,69 @@
+.animated-info {
+  // Source: https://loading.io/css/
+  &__lds-spinner {
+    color: var(--beige-color);
+    // display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto;
+
+    div {
+      transform-origin: 32px 32px;
+      animation: lds-spinner 1.2s linear infinite;
+
+      &::after {
+        content: ' ';
+        display: block;
+        position: absolute;
+        top: 3px;
+        left: 29px;
+        width: 5px;
+        height: 14px;
+        border-radius: 20%;
+        background: #fff;
+      }
+
+      $child: 1;
+      $rotate: 0;
+      $delay: -1.1;
+
+      @for $child from 1 to 13 {
+        &:nth-child(#{$child}) {
+          transform: rotate(#{$rotate}deg);
+          animation-delay: #{$delay}s;
+        }
+
+        $rotate: $rotate + 30;
+        $delay: $delay + 0.1;
+      }
+
+      @keyframes lds-spinner {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+    }
+  }
+
+  &__text {
+    margin-top: 20px;
+    color: var(--beige-color);
+    font-size: 18px;
+    letter-spacing: 1px;
+    line-height: 1.5;
+    font-weight: 400;
+    text-align: center;
+
+    @media (min-width: 1024px) {
+      font-size: 20px;
+    }
+
+    @media (min-width: 1366px) {
+      font-size: 22px;
+    }
+  }
+}

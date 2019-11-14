@@ -3,11 +3,11 @@
   background-color: var(--beige-color);
 
   @media (min-width: 640px) {
-    padding: 15px 30px;
+    padding: 20px 30px;
   }
 
   @media (min-width: 1024px) {
-    padding: 20px 40px;
+    padding: 25px 40px;
   }
 
   &__header {
@@ -16,15 +16,14 @@
 
   &__title {
     margin: 0.2em 0 0.6em 0;
-    font-size: 25px;
-    font-weight: 400;
-
-    @media (min-width: 768px) {
-      font-size: 35px;
-    }
+    font-size: 32px;
 
     @media (min-width: 1024px) {
       font-size: 42px;
+    }
+
+    @media (min-width: 1280px) {
+      font-size: 56px;
     }
   }
 
@@ -53,29 +52,29 @@
   &__info-text {
     font-size: 14px;
 
-    @media (min-width: 768px) {
+    @media (min-width: 1024px) {
       font-size: 16px;
+    }
+
+    @media (min-width: 1280px) {
+      font-size: 18px;
     }
   }
 
   &__body {
-    font-weight: 300 !important;
+    font-weight: 400 !important;
 
     span,
     p {
-      font-size: 14px !important;
+      font-size: 16px !important;
       line-height: 1.5 !important;
       text-align: justify !important;
-
-      @media (min-width: 768px) {
-        font-size: 16px !important;
-      }
 
       @media (min-width: 1024px) {
         font-size: 18px !important;
       }
 
-      @media (min-width: 1440px) {
+      @media (min-width: 1280px) {
         font-size: 20px !important;
       }
     }
@@ -114,14 +113,18 @@
 
     a {
       display: block;
-      font-size: 14px;
+      font-size: 16px;
       text-decoration: none;
       color: var(--main-color);
       box-shadow: 0 2px 0 0 var(--main-color);
       transition: box-shadow 0.25s;
 
-      @media (min-width: 768px) {
-        font-size: 16px;
+      @media (min-width: 1024px) {
+        font-size: 18px !important;
+      }
+
+      @media (min-width: 1280px) {
+        font-size: 20px !important;
       }
 
       &:hover {

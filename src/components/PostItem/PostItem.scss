@@ -17,6 +17,14 @@
     }
   }
 
+  &__title {
+    font-size: 22px;
+
+    @media (min-width: 1280px) {
+      font-size: 28px;
+    }
+  }
+
   &__content {
     @media (min-width: 1024px) {
       width: calc(90% - 150px);
@@ -33,7 +41,11 @@
   &__date {
     padding-top: 10px;
     padding-bottom: 10px;
-    font-size: 15px;
+    font-size: 14px;
+
+    @media (min-width: 1280px) {
+      font-size: 18px;
+    }
   }
 
   &__author {
@@ -50,34 +62,30 @@
   &__body {
     text-align: justify;
     font-style: italic;
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.5;
+
+    @media (min-width: 1280px) {
+      font-size: 20px;
+    }
   }
 
   &__footer {
     padding: 25px 0;
     a {
-      font-size: 18px;
+      font-size: 16px;
       text-decoration: none;
       color: var(--main-color);
       box-shadow: 0 2px 0 0 var(--main-color);
       transition: box-shadow 0.25s;
 
+      @media (min-width: 1280px) {
+        font-size: 20px;
+      }
+
       &:hover {
         box-shadow: 0 5px 0 0 var(--main-color);
       }
-    }
-  }
-  // TODO: it is a good candidate for a mixin 'hyper-link'
-  &__link {
-    font-size: 18px;
-    text-decoration: none;
-    color: var(--main-color);
-    box-shadow: 0 2px 0 0 var(--main-color);
-    transition: box-shadow 0.25s;
-
-    &:hover {
-      box-shadow: 0 5px 0 0 var(--main-color);
     }
   }
 }

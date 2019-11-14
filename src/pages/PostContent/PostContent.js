@@ -12,16 +12,14 @@ const PostContent = props => {
   const [isShowingModal, setIsShowingModal] = useState(false);
   const resultRef = useRef(null);
 
-  const queryData = {
-    baseURL: `https://public-api.wordpress.com/rest/v1.1/sites/${siteId}/posts/${postId}/`,
-    queryParams: Helper.createQueryParams({
-      fields: "author,date,modified,title,short_URL,content"
-    })
-  };
+  const baseURL = `https://public-api.wordpress.com/rest/v1.1/sites/${siteId}/posts/${postId}/`;
+  const queryParams = Helper.createQueryParams({
+    fields: "author,date,modified,title,short_URL,content"
+  });
 
-  const { isLoading, data, error } = useFetch(queryData, true, [
-    queryData.baseURL,
-    queryData.queryParams
+  const { isLoading, data, error } = useFetch({ baseURL, queryParams }, true, [
+    baseURL,
+    queryParams
   ]);
 
   useEffect(() => {

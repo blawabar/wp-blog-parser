@@ -30,7 +30,6 @@ const PostList = ({ queryData }) => {
       }
     } else if (cachedData && resultRef.current) {
       // 3. Scroll to list
-      console.log({ cachedData, resultRef });
       Helper.scrollToElement(resultRef);
     }
 

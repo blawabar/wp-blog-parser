@@ -37,7 +37,7 @@ class Helper {
   };
 
   static scrollToElement = ref => {
-    if (ref) {
+    if (ref.current) {
       ref.current.scrollIntoView({ behavior: "smooth", start: "block" });
     }
   };

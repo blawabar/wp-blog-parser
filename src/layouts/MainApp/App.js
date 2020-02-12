@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="app">
       <Background />
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <div className="app__wrapper">
           <Header />
           <PageContainer />

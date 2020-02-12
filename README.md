@@ -1,3 +1,34 @@
+# Wordpress Posts Fetcher (made with React)
+
+## About the project
+
+This application fetches and displays list of posts from a WordPress blog.
+
+### Seach form
+
+Using a formular user has the ability to provide following search criteria like:
+
+1. domain name,
+2. search phrase,
+3. sorting mechanism (by date of creation, last date of update, title),
+4. number of returned results (from 5 to 100),
+
+Once the "Search" button is clicked and the form is valid, the GET request is sent according to the specifiation [https://developer.wordpress.com/docs/api/1.1/get/sites/%24site/posts/#apidoc-query](https://developer.wordpress.com/docs/api/1.1/get/sites/%24site/posts/#apidoc-query).
+
+### Data validation
+
+If the seach form data is invalid, then a dialog box with a list of errors is shown to the user and the request is not sent.
+
+### Showing a posts list
+
+According to the sent request a post lists will be displayed under the search form. In case of an error there will be proper error message displayed to the user via dialog box.
+
+### Showing a single post
+
+Once the user clicks a selected post, its content is loaded via API [https://developer.wordpress.com/docs/api/1.1/get/sites/%24site/posts/%24post_ID/](https://developer.wordpress.com/docs/api/1.1/get/sites/%24site/posts/%24post_ID/) and displayed on the application page. The search formular disappears. User has the ability to move back to the search formular by clicking "Go to search results" button (the search formular's content stays intact.) or to visit the post's site by clicking "Visit site" button.
+
+## Create React App
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

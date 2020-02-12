@@ -2,11 +2,11 @@
 
 ## About the project
 
-This application fetches and displays list of posts from a WordPress blog.
+This application fetches and displays list of posts from a selected WordPress blog.
 
 ### Seach form
 
-Using a formular user has the ability to provide following search criteria like:
+Using a search form user has the ability to provide following search criteria like:
 
 1. domain name,
 2. search phrase,
@@ -21,11 +21,23 @@ If the seach form data is invalid, then a dialog box with a list of errors is sh
 
 ### Showing a posts list
 
-According to the sent request a post lists will be displayed under the search form. In case of an error there will be proper error message displayed to the user via dialog box.
+According to the sent request a posts list is displayed under the search form.
+
+In case of an error there will be a proper error message displayed to the user via dialog box.
+
+Each list item is presented in a form of a miniature consisting of following information like:
+
+- author,
+- publication date,
+- last modification date (only if post was modified),
+- title,
+- excerpt,
 
 ### Showing a single post
 
-Once the user clicks a selected post, its content is loaded via API [https://developer.wordpress.com/docs/api/1.1/get/sites/%24site/posts/%24post_ID/](https://developer.wordpress.com/docs/api/1.1/get/sites/%24site/posts/%24post_ID/) and displayed on the application page. The search formular disappears. User has the ability to move back to the search formular by clicking "Go to search results" button (the search formular's content stays intact.) or to visit the post's site by clicking "Visit site" button.
+Once the posts list is loaded user can view a single post content just by clicking "Go to Post Content" link on a selected post miniature. Its content is loaded via API [https://developer.wordpress.com/docs/api/1.1/get/sites/%24site/posts/%24post_ID/](https://developer.wordpress.com/docs/api/1.1/get/sites/%24site/posts/%24post_ID/) and displayed on the application page. The search form disappears.
+
+User has the ability to move back to the search form by clicking the "Go to search results" link (the search form's content stays intact) or to visit the post's site by clicking the "Visit site" link which are present in the post item's footer.
 
 ## Create React App
 

@@ -1,5 +1,7 @@
 # Wordpress Posts Fetcher (made with React)
 
+Live demo: [https://blawabar.github.io/wp-blog-parser/](https://blawabar.github.io/wp-blog-parser/)
+
 ## About the project
 
 This application fetches and displays list of posts from a selected WordPress blog.

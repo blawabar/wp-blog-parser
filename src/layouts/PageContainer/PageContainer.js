@@ -3,9 +3,8 @@ import { Switch, Route } from "react-router-dom";
 
 import "./PageContainer.scss";
 
-import Explorer from "../../pages/Explorer/Explorer";
-import PostContent from "../../pages/PostContent/PostContent";
-// it must have at least height of 100vh - (Header + Footer)
+import { Explorer, PostContent } from "pages";
+
 const PageContainer = () => {
   return (
     <div className="page-container">

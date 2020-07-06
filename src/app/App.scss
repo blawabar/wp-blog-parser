@@ -1,0 +1,11 @@
+.app {
+  &__wrapper {
+    width: 90%;
+    margin: 0 auto;
+    overflow: hidden;
+
+    @media (min-width: 1280px) {
+      width: 1200px;
+    }
+  }
+}

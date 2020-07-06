@@ -2,8 +2,7 @@ import React, { useState } from "react";
 
 import "./Explorer.scss";
 
-import SearchForm from "../../components/SearchForm/SearchForm";
-import PostList from "../../components/PostList/PostList";
+import { SearchForm, PostList } from "components";
 
 const Explorer = () => {
   const [queryData, setQueryData] = useState(null);

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 
 import "./SearchForm.scss";
-import Helper from "../../helpers/Helper";
+import { Helper } from "helpers";
 
 const INITIAL_STATE = {
   domain: "",
   searchPhrase: "",
   searchLimit: 5,
-  orderBy: "date"
+  orderBy: "date",
 };
 
 const CACHED_STATE = "searchFormState";
@@ -25,12 +25,12 @@ const SearchForm = ({ setQueryData }) => {
     }
   }, []);
 
-  const handleOnChange = evt => {
+  const handleOnChange = (evt) => {
     const { name, value } = evt.target;
     setSearchData({ ...searchData, [name]: value });
   };
 
-  const isDomainNameValid = domainName => {
+  const isDomainNameValid = (domainName) => {
     const regExp = /^[a-z0-9][a-z0-9-]*[a-z0-9](\.[a-z0-9]+[a-z0-9-]*[a-z0-9]+)*\.[a-z][a-z]*[a-z]$/;
     regExp.test(domainName);
 
@@ -41,7 +41,7 @@ const SearchForm = ({ setQueryData }) => {
     );
   };
 
-  const isSearchLimitValid = searchLimit =>
+  const isSearchLimitValid = (searchLimit) =>
     searchLimit >= 5 && searchLimit <= 100;
 
   const validateForm = (domain, searchLimit) => {
@@ -63,7 +63,7 @@ const SearchForm = ({ setQueryData }) => {
     return !errors.length;
   };
 
-  const handleOnSubmit = evt => {
+  const handleOnSubmit = (evt) => {
     evt.preventDefault();
 
     // 0. Get form data for validation
@@ -81,7 +81,7 @@ const SearchForm = ({ setQueryData }) => {
           "ID,site_ID,author,date,modified,title,short_URL,excerpt,attachments",
         number: searchLimit,
         order_by: orderBy,
-        search: searchPhrase
+        search: searchPhrase,
       });
 
       setQueryData({ baseURL, queryParams });

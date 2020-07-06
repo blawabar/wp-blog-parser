@@ -2,10 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 
 import "./PostList.scss";
 
-import useFetch from "../../hooks/useFetch";
-import Helper from "../../helpers/Helper";
+import { useFetch } from "hooks";
+import { Helper } from "helpers";
 
-import PostItem from "../PostItem/PostItem";
+import { PostItem } from "components";
 
 const CACHED_STATE = "fetchState";
 
@@ -15,7 +15,7 @@ const PostList = ({ queryData }) => {
   const [cachedData, setCachedData] = useState(null);
 
   const { isLoading, error, data } = useFetch(queryData, !!queryData, [
-    queryData
+    queryData,
   ]);
 
   useEffect(() => {
@@ -44,13 +44,13 @@ const PostList = ({ queryData }) => {
     }
   }, [data, error, cachedData]);
 
-  const renderPostList = data => (
+  const renderPostList = (data) => (
     <div ref={resultRef} className="post-list">
       <h1 className="post-list__heading">Search Results</h1>
       <h2 className="post-list__info">
         {data.posts.length} Posts have been found
       </h2>
-      {data.posts.map(post => (
+      {data.posts.map((post) => (
         <PostItem key={post.ID} {...post} />
       ))}
     </div>

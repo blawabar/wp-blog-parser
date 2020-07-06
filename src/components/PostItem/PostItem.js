@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import "./PostItem.scss";
 
-import Helper from "../../helpers/Helper";
+import { Helper } from "helpers";
 
 const PostItem = ({
   site_ID,
@@ -14,13 +14,13 @@ const PostItem = ({
   modified,
   title,
   excerpt,
-  attachments
+  attachments,
 }) => {
   const shortDate = Helper.extractDate(date);
   const shortModified = Helper.extractDate(modified);
 
-  const renderImage = attachments => {
-    let imgSrc = require("../../img/article-150.png");
+  const renderImage = (attachments) => {
+    let imgSrc = require("img/article-150.png");
 
     const keys = Object.keys(attachments);
     if (keys.length) {

@@ -3,11 +3,7 @@ import "./App.scss";
 
 import { BrowserRouter as Router } from "react-router-dom";
 
-import Background from "../Background/Background";
-
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
-import PageContainer from "../PageContainer/PageContainer";
+import { Background, Header, Footer, PageContainer } from "layouts";
 
 function App() {
   return (

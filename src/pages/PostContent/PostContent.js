@@ -4,22 +4,22 @@ import { Link } from "react-router-dom";
 
 import "./PostContent.scss";
 
-import Helper from "../../helpers/Helper";
-import useFetch from "../../hooks/useFetch";
+import { Helper } from "helpers";
+import { useFetch } from "hooks";
 
-const PostContent = props => {
+const PostContent = (props) => {
   const { siteId, postId } = props.match.params;
   const [isShowingModal, setIsShowingModal] = useState(false);
   const resultRef = useRef(null);
 
   const baseURL = `https://public-api.wordpress.com/rest/v1.1/sites/${siteId}/posts/${postId}/`;
   const queryParams = Helper.createQueryParams({
-    fields: "author,date,modified,title,short_URL,content"
+    fields: "author,date,modified,title,short_URL,content",
   });
 
   const { isLoading, data, error } = useFetch({ baseURL, queryParams }, true, [
     baseURL,
-    queryParams
+    queryParams,
   ]);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ const PostContent = props => {
     );
   };
 
-  const renderBody = content => {
+  const renderBody = (content) => {
     return (
       <section
         className="post-content__body"
@@ -70,7 +70,7 @@ const PostContent = props => {
     );
   };
 
-  const renderFooter = short_URL => {
+  const renderFooter = (short_URL) => {
     return (
       <footer className="post-content__footer">
         <Link to="/">Go to search results</Link>
@@ -81,7 +81,7 @@ const PostContent = props => {
     );
   };
 
-  const renderPostContent = data => {
+  const renderPostContent = (data) => {
     const { author, date, modified, title, short_URL, content } = data;
     return (
       <div className="post-content" ref={resultRef}>

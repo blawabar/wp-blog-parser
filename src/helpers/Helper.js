@@ -1,22 +1,20 @@
 import React from "react";
 
-import ModalPane from "../components/ModalPane/ModalPane";
-import ModalWindow from "../components/ModalWindow/ModalWindow";
-import AnimatedInfo from "../components/AnimatedInfo/AnimatedInfo";
+import { ModalPane, ModalWindow, AnimatedInfo } from "components";
 
 class Helper {
   static domParser = new DOMParser();
 
-  static createQueryParams = values => {
+  static createQueryParams = (values) => {
     return new URLSearchParams(values).toString();
   };
 
-  static parseTextContent = content => {
+  static parseTextContent = (content) => {
     return Helper.domParser.parseFromString(content, "text/html")
       .documentElement.innerText;
   };
 
-  static parseHTMLContent = content => {
+  static parseHTMLContent = (content) => {
     const [body] = Helper.domParser
       .parseFromString(content, "text/html")
       .documentElement.getElementsByTagName("body");
@@ -24,7 +22,7 @@ class Helper {
     return body ? { __html: body.innerHTML } : <h1>Nothing has been found</h1>;
   };
 
-  static extractDate = dateAsString => {
+  static extractDate = (dateAsString) => {
     if (typeof dateAsString === "string") {
       return dateAsString.substring(0, 10);
     }
@@ -36,7 +34,7 @@ class Helper {
     return date1.localeCompare(date2) !== 0;
   };
 
-  static scrollToElement = ref => {
+  static scrollToElement = (ref) => {
     if (ref.current) {
       ref.current.scrollIntoView({ behavior: "smooth", start: "block" });
     }
@@ -58,7 +56,7 @@ class Helper {
     return null;
   };
 
-  static showInfo = infoMessage => {
+  static showInfo = (infoMessage) => {
     return (
       <ModalPane>
         <AnimatedInfo textMessage={infoMessage} />

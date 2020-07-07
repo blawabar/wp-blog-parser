@@ -1,0 +1,44 @@
+.post-body {
+  font-weight: 400 !important;
+
+  span,
+  p {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    text-align: justify !important;
+
+    @media (min-width: 1024px) {
+      font-size: 18px !important;
+    }
+
+    @media (min-width: 1280px) {
+      font-size: 20px !important;
+    }
+  }
+
+  div,
+  section {
+    width: auto !important;
+  }
+
+  img {
+    display: block !important;
+    margin: 15px auto !important;
+    width: 75% !important;
+    height: auto !important;
+
+    @media (min-width: 768px) {
+      width: 50% !important;
+    }
+
+    @media (min-width: 1024px) {
+      width: 37.5% !important;
+    }
+  }
+
+  p {
+    & + p {
+      margin: 20px 0 !important;
+    }
+  }
+}

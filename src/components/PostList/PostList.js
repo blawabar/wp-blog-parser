@@ -7,21 +7,21 @@ import "./PostList.scss";
 import { Helper } from "utils";
 import { PostItem } from "components";
 
-const PostList = ({ isLoading, errorInfo, postData }) => {
+const PostList = ({ isLoading, errorInfo, postListData }) => {
   const resultRef = useRef(null);
   const [isShowingModal, setIsShowingModal] = useState(false);
 
   useEffect(() => {
-    if (postData) {
+    if (postListData) {
       Helper.scrollToElement(resultRef);
     }
 
     if (errorInfo) {
       setIsShowingModal(true);
     }
-  }, [postData, errorInfo]);
+  }, [postListData, errorInfo]);
 
-  const renderPostList = ({ posts }) => (
+  const renderPostList = (posts) => (
     <div ref={resultRef} className="post-list">
       <h1 className="post-list__heading">Search Results</h1>
       <h2 className="post-list__info">{posts.length} Posts have been found</h2>
@@ -44,8 +44,8 @@ const PostList = ({ isLoading, errorInfo, postData }) => {
     content = renderErrorMsg();
   } else if (isLoading) {
     content = renderLoadingInfo();
-  } else if (postData) {
-    content = renderPostList(postData);
+  } else if (postListData) {
+    content = renderPostList(postListData);
   }
 
   return content;
@@ -55,13 +55,13 @@ const mapStateToProps = ({ posts }) => ({ ...posts });
 
 PostList.defaultProps = {
   errorInfo: null,
-  postData: null,
+  postListData: null,
 };
 
 PostList.propTypes = {
   isLoading: PropTypes.bool,
   errorInfo: PropTypes.string,
-  postData: PropTypes.object,
+  postListData: PropTypes.array,
 };
 
 export default connect(mapStateToProps, null)(PostList);

@@ -7,7 +7,7 @@ import {
 const INITIAL_STATE = {
   isLoading: false,
   errorInfo: null,
-  postData: null,
+  postListData: null,
   actionStatus: null,
   cachedSearchData: null,
 };
@@ -20,7 +20,7 @@ export const postsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoading: true,
-        postData: null,
+        postListData: null,
         actionStatus: type,
         cachedSearchData: payload,
       };
@@ -28,7 +28,7 @@ export const postsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoading: false,
-        postData: payload,
+        postListData: payload,
         actionStatus: type,
       };
     case GET_POSTS_FAILURE:

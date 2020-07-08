@@ -3,9 +3,11 @@ import { applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import { rootReducer } from "./reducers";
+import { normalizerMiddleware } from "data/middleware";
 
 export const configureStore = (preloadedState = {}) => {
-  const middlewareEnhancer = applyMiddleware(thunkMiddleware);
+  const middlewares = [thunkMiddleware, normalizerMiddleware];
+  const middlewareEnhancer = applyMiddleware(...middlewares);
   const composedEnhancers = composeWithDevTools(middlewareEnhancer);
 
   const store = createStore(rootReducer, preloadedState, composedEnhancers);

@@ -5,12 +5,7 @@ import "./PostHeader.scss";
 
 import { Helper } from "utils";
 
-const PostHeader = ({
-  author: { name: authorName },
-  date,
-  modified,
-  title,
-}) => {
+const PostHeader = ({ authorName, date, modified, title }) => {
   const resultRef = useRef(null);
 
   useEffect(() => {
@@ -47,7 +42,7 @@ const PostHeader = ({
 };
 
 PostHeader.propTypes = {
-  author: PropTypes.object.isRequired,
+  authorName: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   modfied: PropTypes.string,
   title: PropTypes.string.isRequired,

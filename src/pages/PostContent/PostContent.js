@@ -22,7 +22,8 @@ const PostContent = ({ getPost, isLoading, postData, errorInfo }) => {
   }, []);
 
   const renderPostContent = (postData) => {
-    const { short_URL: url, content, ...headerData } = postData;
+    // const { short_URL: url, content, ...headerData } = postData;
+    const { url, content, ...headerData } = postData;
 
     return (
       <div className="post-content">

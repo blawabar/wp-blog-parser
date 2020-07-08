@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import "./PostItem.scss";
 
-import { Helper } from "helpers";
+import { Helper } from "utils";
 
 const PostItem = ({
   site_ID,

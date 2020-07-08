@@ -1,63 +1,38 @@
 import React, { useState, useRef, useEffect } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 import "./PostList.scss";
 
-import { useFetch } from "hooks";
-import { Helper } from "helpers";
-
+import { Helper } from "utils";
 import { PostItem } from "components";
 
-const CACHED_STATE = "fetchState";
-
-const PostList = ({ queryData }) => {
+const PostList = ({ isLoading, errorInfo, postData }) => {
   const resultRef = useRef(null);
   const [isShowingModal, setIsShowingModal] = useState(false);
-  const [cachedData, setCachedData] = useState(null);
-
-  const { isLoading, error, data } = useFetch(queryData, !!queryData, [
-    queryData,
-  ]);
 
   useEffect(() => {
-    // 0. Check if cache is empty
-    if (!cachedData) {
-      //1. Check session storage
-      const cachedState = sessionStorage.getItem(CACHED_STATE);
-
-      // 2. If it has data, use it to update state
-      if (cachedState) {
-        setCachedData(JSON.parse(cachedState));
-      }
-    } else if (cachedData && resultRef.current) {
-      // 3. Scroll to list
+    if (postData) {
       Helper.scrollToElement(resultRef);
     }
 
-    // 4. Check data
-    if (data) {
-      // 5. Persist data into sessionStorage
-      sessionStorage.setItem(CACHED_STATE, JSON.stringify(data));
-      // 5. Scroll to list
-      Helper.scrollToElement(resultRef);
-    } else if (error) {
+    if (errorInfo) {
       setIsShowingModal(true);
     }
-  }, [data, error, cachedData]);
+  }, [postData, errorInfo]);
 
-  const renderPostList = (data) => (
+  const renderPostList = ({ posts }) => (
     <div ref={resultRef} className="post-list">
       <h1 className="post-list__heading">Search Results</h1>
-      <h2 className="post-list__info">
-        {data.posts.length} Posts have been found
-      </h2>
-      {data.posts.map((post) => (
+      <h2 className="post-list__info">{posts.length} Posts have been found</h2>
+      {posts.map((post) => (
         <PostItem key={post.ID} {...post} />
       ))}
     </div>
   );
 
   const renderErrorMsg = () =>
-    Helper.showModal("Fetch error", [error.message], isShowingModal, () =>
+    Helper.showModal("Fetch error", [errorInfo], isShowingModal, () =>
       setIsShowingModal(false)
     );
 
@@ -65,15 +40,28 @@ const PostList = ({ queryData }) => {
 
   let content = null;
 
-  if (error) {
+  if (errorInfo) {
     content = renderErrorMsg();
   } else if (isLoading) {
     content = renderLoadingInfo();
-  } else if (data || cachedData) {
-    content = renderPostList(data || cachedData);
+  } else if (postData) {
+    content = renderPostList(postData);
   }
 
   return content;
 };
 
-export default PostList;
+const mapStateToProps = ({ posts }) => ({ ...posts });
+
+PostList.defaultProps = {
+  errorInfo: null,
+  postData: null,
+};
+
+PostList.propTypes = {
+  isLoading: PropTypes.bool,
+  errorInfo: PropTypes.string,
+  postData: PropTypes.object,
+};
+
+export default connect(mapStateToProps, null)(PostList);

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import "./PostBody.scss";
 
-import { Helper } from "helpers";
+import { Helper } from "utils";
 
 const PostBody = ({ content }) => {
   return (

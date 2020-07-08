@@ -1,4 +1,4 @@
-import { Helper } from "helpers";
+import { Helper } from "utils";
 
 const queryParams = Helper.createQueryParams({
   fields: "author,date,modified,title,short_URL,content",

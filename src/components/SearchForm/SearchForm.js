@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 import "./SearchForm.scss";
-import { Helper } from "helpers";
+
+import { Helper, formValidator } from "utils";
+import { getPosts } from "data/actions";
 
 const INITIAL_STATE = {
   domain: "",
@@ -10,92 +14,39 @@ const INITIAL_STATE = {
   orderBy: "date",
 };
 
-const CACHED_STATE = "searchFormState";
-
-const SearchForm = ({ setQueryData }) => {
-  const [searchData, setSearchData] = useState(INITIAL_STATE);
-  const [isShowingModal, setIsShowingModal] = useState(false);
+const SearchForm = ({ getPosts, cachedSearchData }) => {
+  const [searchData, setSearchData] = useState(
+    cachedSearchData || INITIAL_STATE
+  );
   const [errors, setErrors] = useState([]);
 
-  useEffect(() => {
-    const cachedState = sessionStorage.getItem(CACHED_STATE);
+  const [isShowingModal, setIsShowingModal] = useState(false);
 
-    if (cachedState) {
-      setSearchData(JSON.parse(cachedState));
-    }
-  }, []);
-
-  const handleOnChange = (evt) => {
-    const { name, value } = evt.target;
+  const handleOnChange = ({ target: { name, value } }) => {
     setSearchData({ ...searchData, [name]: value });
-  };
-
-  const isDomainNameValid = (domainName) => {
-    const regExp = /^[a-z0-9][a-z0-9-]*[a-z0-9](\.[a-z0-9]+[a-z0-9-]*[a-z0-9]+)*\.[a-z][a-z]*[a-z]$/;
-    regExp.test(domainName);
-
-    return (
-      regExp.test(domainName) &&
-      domainName.length >= 4 &&
-      domainName.length <= 100
-    );
-  };
-
-  const isSearchLimitValid = (searchLimit) =>
-    searchLimit >= 5 && searchLimit <= 100;
-
-  const validateForm = (domain, searchLimit) => {
-    const errors = [];
-
-    if (!isDomainNameValid(domain)) {
-      errors.push("Please enter a valid domain name (max. 100 chars.)");
-    }
-
-    if (!isSearchLimitValid(searchLimit)) {
-      errors.push("Please enter a valid search limit (from 5 to 100)");
-    }
-
-    if (errors.length) {
-      setErrors(errors);
-      setIsShowingModal(true);
-    }
-
-    return !errors.length;
   };
 
   const handleOnSubmit = (evt) => {
     evt.preventDefault();
 
-    // 0. Get form data for validation
-    const { domain, searchPhrase, searchLimit, orderBy } = searchData;
-
-    // 1. Validate form
-    const formIsValid = validateForm(domain, searchLimit);
+    const { formIsValid, errors } = formValidator.validateForm(searchData);
 
     if (formIsValid) {
-      sessionStorage.setItem(CACHED_STATE, JSON.stringify(searchData));
-      const baseURL = `https://public-api.wordpress.com/rest/v1.1/sites/${domain}/posts/`;
-
-      const queryParams = Helper.createQueryParams({
-        fields:
-          "ID,site_ID,author,date,modified,title,short_URL,excerpt,attachments",
-        number: searchLimit,
-        order_by: orderBy,
-        search: searchPhrase,
-      });
-
-      setQueryData({ baseURL, queryParams });
+      getPosts(searchData);
+    } else {
+      setErrors(errors);
+      setIsShowingModal(true);
     }
   };
 
-  const renderForm = () => (
+  const renderForm = ({ domain, searchPhrase, searchLimit, orderBy }) => (
     <form className="search-form" noValidate onSubmit={handleOnSubmit}>
       <input
         type="text"
         name="domain"
         className="search-form__input-text"
         placeholder="Wordpress domain"
-        value={searchData.domain}
+        value={domain}
         onChange={handleOnChange}
       />
       <input
@@ -103,7 +54,7 @@ const SearchForm = ({ setQueryData }) => {
         name="searchPhrase"
         className="search-form__input-text"
         placeholder="Search phrase"
-        value={searchData.searchPhrase}
+        value={searchPhrase}
         onChange={handleOnChange}
       />
       <input
@@ -113,7 +64,8 @@ const SearchForm = ({ setQueryData }) => {
         placeholder="Limit"
         min="5"
         max="100"
-        value={searchData.searchLimit}
+        step="1"
+        value={searchLimit}
         onChange={handleOnChange}
       />
       <div className="search-form__input-holder">
@@ -121,7 +73,7 @@ const SearchForm = ({ setQueryData }) => {
         <select
           name="orderBy"
           className="search-form__input-select"
-          value={searchData.orderBy}
+          value={orderBy}
           onChange={handleOnChange}
         >
           <option value="date">Date</option>
@@ -137,7 +89,7 @@ const SearchForm = ({ setQueryData }) => {
 
   return (
     <>
-      {renderForm()}
+      {renderForm(searchData)}
       {Helper.showModal("Form Validation Error", errors, isShowingModal, () =>
         setIsShowingModal(false)
       )}
@@ -145,4 +97,22 @@ const SearchForm = ({ setQueryData }) => {
   );
 };
 
-export default SearchForm;
+const mapStateToProps = ({ posts: { cachedSearchData } }) => ({
+  cachedSearchData,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getPosts: (searchData) =>
+    searchData ? dispatch(getPosts(searchData)) : null,
+});
+
+SearchForm.defaultProps = {
+  cachedSearchData: null,
+};
+
+SearchForm.propTypes = {
+  getPosts: PropTypes.func,
+  cachedSearchData: PropTypes.object,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchForm);

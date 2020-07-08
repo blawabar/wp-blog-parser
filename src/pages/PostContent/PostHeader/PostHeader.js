@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import "./PostHeader.scss";
 
-import { Helper } from "helpers";
+import { Helper } from "utils";
 
 const PostHeader = ({
   author: { name: authorName },
@@ -47,7 +47,7 @@ const PostHeader = ({
 };
 
 PostHeader.propTypes = {
-  authorName: PropTypes.string.isRequired,
+  author: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
   modfied: PropTypes.string,
   title: PropTypes.string.isRequired,

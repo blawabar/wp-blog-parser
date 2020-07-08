@@ -7,8 +7,9 @@ import {
 const INITIAL_STATE = {
   isLoading: false,
   errorInfo: null,
-  postsData: [],
+  postData: null,
   actionStatus: null,
+  cachedSearchData: null,
 };
 
 export const postsReducer = (state = INITIAL_STATE, action) => {
@@ -16,12 +17,18 @@ export const postsReducer = (state = INITIAL_STATE, action) => {
 
   switch (type) {
     case GET_POSTS_REQUEST:
-      return { ...state, isLoading: true, postsData: null, actionStatus: type };
+      return {
+        ...state,
+        isLoading: true,
+        postData: null,
+        actionStatus: type,
+        cachedSearchData: payload,
+      };
     case GET_POSTS_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        postsData: payload,
+        postData: payload,
         actionStatus: type,
       };
     case GET_POSTS_FAILURE:

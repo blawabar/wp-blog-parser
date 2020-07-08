@@ -6,8 +6,9 @@ import {
 
 import { API } from "data/fetch";
 
-const getPostsRequest = () => ({
+const getPostsRequest = (searchData) => ({
   type: GET_POSTS_REQUEST,
+  payload: searchData,
 });
 
 const getPostsSuccess = (postData) => ({
@@ -20,10 +21,10 @@ const getPostsFailure = (errorInfo) => ({
   payload: errorInfo,
 });
 
-export const getPosts = (queryData) => async (dispatch) => {
+export const getPosts = (searchData) => async (dispatch) => {
   try {
-    dispatch(getPostsRequest());
-    const response = await API.post.fetchPosts(queryData);
+    dispatch(getPostsRequest(searchData));
+    const response = await API.posts.fetchPosts(searchData);
 
     if (response.ok) {
       const postData = await response.json();

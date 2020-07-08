@@ -2,6 +2,7 @@ import {
   GET_POST_REQUEST,
   GET_POST_SUCCESS,
   GET_POST_FAILURE,
+  CLEAR_POST,
 } from "data/types";
 
 const INITIAL_STATE = {
@@ -31,6 +32,8 @@ export const postReducer = (state = INITIAL_STATE, action) => {
         errorInfo: payload,
         actionStatus: type,
       };
+    case CLEAR_POST:
+      return { ...state, actionStatus: null, postData: null };
     default:
       return state;
   }

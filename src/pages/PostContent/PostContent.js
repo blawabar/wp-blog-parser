@@ -6,12 +6,18 @@ import { connect } from "react-redux";
 import "./PostContent.scss";
 
 import { Helper } from "utils";
-import { getPost } from "data/actions";
+import { getPost, clearPost } from "data/actions";
 import { PostHeader } from "./PostHeader";
 import { PostFooter } from "./PostFooter";
 import { PostBody } from "./PostBody";
 
-const PostContent = ({ getPost, isLoading, postData, errorInfo }) => {
+const PostContent = ({
+  getPost,
+  clearPost,
+  isLoading,
+  postData,
+  errorInfo,
+}) => {
   const { siteId, postId } = useParams();
   const history = useHistory();
   const [isShowingModal, setIsShowingModal] = useState(false);
@@ -22,14 +28,13 @@ const PostContent = ({ getPost, isLoading, postData, errorInfo }) => {
   }, []);
 
   const renderPostContent = (postData) => {
-    // const { short_URL: url, content, ...headerData } = postData;
     const { url, content, ...headerData } = postData;
 
     return (
       <div className="post-content">
         <PostHeader {...headerData} />
         <PostBody content={content} />
-        <PostFooter url={url} />
+        <PostFooter url={url} onLinkClick={clearPost} />
       </div>
     );
   };
@@ -59,6 +64,7 @@ const mapStateToProps = ({ post }) => ({ ...post });
 
 const mapDispatchToProps = (dispatch) => ({
   getPost: (siteId, postId) => dispatch(getPost(siteId, postId)),
+  clearPost: () => dispatch(clearPost()),
 });
 
 PostContent.defaultProps = {

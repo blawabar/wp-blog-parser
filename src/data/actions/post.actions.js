@@ -2,6 +2,7 @@ import {
   GET_POST_REQUEST,
   GET_POST_SUCCESS,
   GET_POST_FAILURE,
+  CLEAR_POST,
 } from "data/types";
 
 import { API } from "data/fetch";
@@ -35,4 +36,8 @@ export const getPost = (siteId, postId) => async (dispatch) => {
   } catch (error) {
     dispatch(getPostFailure(error.toString()));
   }
+};
+
+export const clearPost = () => async (dispatch) => {
+  dispatch({ type: CLEAR_POST });
 };

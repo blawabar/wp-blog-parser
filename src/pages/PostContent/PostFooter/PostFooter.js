@@ -4,10 +4,12 @@ import PropTypes from "prop-types";
 
 import "./PostFooter.scss";
 
-const PostFooter = ({ url }) => {
+const PostFooter = ({ url, onLinkClick }) => {
   return (
     <footer className="post-footer">
-      <Link to="/">Go to search results</Link>
+      <Link to="/" onClick={onLinkClick}>
+        Go to search results
+      </Link>
       <a href={url} target="_blank" rel="noopener noreferrer">
         Visit site
       </a>
@@ -17,6 +19,7 @@ const PostFooter = ({ url }) => {
 
 PostFooter.propTypes = {
   url: PropTypes.string,
+  onLinkClick: PropTypes.func,
 };
 
 export default PostFooter;

@@ -1,24 +1,24 @@
 {
   "files": {
     "main.css": "/wp-blog-parser/static/css/main.4ea49fb7.chunk.css",
-    "main.js": "/wp-blog-parser/static/js/main.de78dcf0.chunk.js",
-    "main.js.map": "/wp-blog-parser/static/js/main.de78dcf0.chunk.js.map",
+    "main.js": "/wp-blog-parser/static/js/main.c6e97f1a.chunk.js",
+    "main.js.map": "/wp-blog-parser/static/js/main.c6e97f1a.chunk.js.map",
     "runtime-main.js": "/wp-blog-parser/static/js/runtime-main.22af4470.js",
     "runtime-main.js.map": "/wp-blog-parser/static/js/runtime-main.22af4470.js.map",
-    "static/js/2.48f2b9c7.chunk.js": "/wp-blog-parser/static/js/2.48f2b9c7.chunk.js",
-    "static/js/2.48f2b9c7.chunk.js.map": "/wp-blog-parser/static/js/2.48f2b9c7.chunk.js.map",
+    "static/js/2.9546bb73.chunk.js": "/wp-blog-parser/static/js/2.9546bb73.chunk.js",
+    "static/js/2.9546bb73.chunk.js.map": "/wp-blog-parser/static/js/2.9546bb73.chunk.js.map",
     "index.html": "/wp-blog-parser/index.html",
-    "precache-manifest.668b0992e5acb56c98058fd2effeb03c.js": "/wp-blog-parser/precache-manifest.668b0992e5acb56c98058fd2effeb03c.js",
+    "precache-manifest.b784be67f8626e7b26a82c1666ca3c86.js": "/wp-blog-parser/precache-manifest.b784be67f8626e7b26a82c1666ca3c86.js",
     "service-worker.js": "/wp-blog-parser/service-worker.js",
     "static/css/main.4ea49fb7.chunk.css.map": "/wp-blog-parser/static/css/main.4ea49fb7.chunk.css.map",
-    "static/js/2.48f2b9c7.chunk.js.LICENSE.txt": "/wp-blog-parser/static/js/2.48f2b9c7.chunk.js.LICENSE.txt",
+    "static/js/2.9546bb73.chunk.js.LICENSE.txt": "/wp-blog-parser/static/js/2.9546bb73.chunk.js.LICENSE.txt",
     "static/media/Background.scss": "/wp-blog-parser/static/media/alphabet.f00e7a8a.jpg",
     "static/media/logo.png": "/wp-blog-parser/static/media/logo.21fb02ae.png"
   },
   "entrypoints": [
     "static/js/runtime-main.22af4470.js",
-    "static/js/2.48f2b9c7.chunk.js",
+    "static/js/2.9546bb73.chunk.js",
     "static/css/main.4ea49fb7.chunk.css",
-    "static/js/main.de78dcf0.chunk.js"
+    "static/js/main.c6e97f1a.chunk.js"
   ]
 }

@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "3ac73fadb7d76d2af28d8256c35f141d",
+    "revision": "029b1a395644c9f3fbea87b0b085268e",
     "url": "/wp-blog-parser/index.html"
   },
   {
-    "revision": "c145a3f52a55853d9ee5",
+    "revision": "e564a733d5bbfd099f4a",
     "url": "/wp-blog-parser/static/css/main.4ea49fb7.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/wp-blog-parser/static/js/2.9546bb73.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "c145a3f52a55853d9ee5",
-    "url": "/wp-blog-parser/static/js/main.c6e97f1a.chunk.js"
+    "revision": "e564a733d5bbfd099f4a",
+    "url": "/wp-blog-parser/static/js/main.6de4e643.chunk.js"
   },
   {
     "revision": "7159a5e446b32be2d734",

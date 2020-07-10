@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/wp-blog-parser/static/css/main.4ea49fb7.chunk.css",
-    "main.js": "/wp-blog-parser/static/js/main.c6e97f1a.chunk.js",
-    "main.js.map": "/wp-blog-parser/static/js/main.c6e97f1a.chunk.js.map",
+    "main.js": "/wp-blog-parser/static/js/main.6de4e643.chunk.js",
+    "main.js.map": "/wp-blog-parser/static/js/main.6de4e643.chunk.js.map",
     "runtime-main.js": "/wp-blog-parser/static/js/runtime-main.22af4470.js",
     "runtime-main.js.map": "/wp-blog-parser/static/js/runtime-main.22af4470.js.map",
     "static/js/2.9546bb73.chunk.js": "/wp-blog-parser/static/js/2.9546bb73.chunk.js",
     "static/js/2.9546bb73.chunk.js.map": "/wp-blog-parser/static/js/2.9546bb73.chunk.js.map",
     "index.html": "/wp-blog-parser/index.html",
-    "precache-manifest.b784be67f8626e7b26a82c1666ca3c86.js": "/wp-blog-parser/precache-manifest.b784be67f8626e7b26a82c1666ca3c86.js",
+    "precache-manifest.291061dfbff64a58ba25a8503db735f6.js": "/wp-blog-parser/precache-manifest.291061dfbff64a58ba25a8503db735f6.js",
     "service-worker.js": "/wp-blog-parser/service-worker.js",
     "static/css/main.4ea49fb7.chunk.css.map": "/wp-blog-parser/static/css/main.4ea49fb7.chunk.css.map",
     "static/js/2.9546bb73.chunk.js.LICENSE.txt": "/wp-blog-parser/static/js/2.9546bb73.chunk.js.LICENSE.txt",
@@ -19,6 +19,6 @@
     "static/js/runtime-main.22af4470.js",
     "static/js/2.9546bb73.chunk.js",
     "static/css/main.4ea49fb7.chunk.css",
-    "static/js/main.c6e97f1a.chunk.js"
+    "static/js/main.6de4e643.chunk.js"
   ]
 }

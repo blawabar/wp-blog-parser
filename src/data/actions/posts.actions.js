@@ -1,4 +1,5 @@
 import {
+  GET_POSTS,
   GET_POSTS_REQUEST,
   GET_POSTS_SUCCESS,
   GET_POSTS_FAILURE,
@@ -6,34 +7,21 @@ import {
 
 import { API } from "data/fetch";
 
-const getPostsRequest = (searchData) => ({
+export const getPostsRequest = () => ({
   type: GET_POSTS_REQUEST,
-  payload: searchData,
 });
 
-const getPostsSuccess = (postData) => ({
+export const getPostsSuccess = (postData) => ({
   type: GET_POSTS_SUCCESS,
   payload: postData,
 });
 
-const getPostsFailure = (errorInfo) => ({
+export const getPostsFailure = (errorInfo) => ({
   type: GET_POSTS_FAILURE,
   payload: errorInfo,
 });
 
-export const getPosts = (searchData) => async (dispatch) => {
-  try {
-    dispatch(getPostsRequest(searchData));
-    const response = await API.posts.fetchPosts(searchData);
-
-    if (response.ok) {
-      const postData = await response.json();
-      dispatch(getPostsSuccess(postData));
-    } else {
-      const error = await response.json();
-      throw new Error(error.toString());
-    }
-  } catch (error) {
-    dispatch(getPostsFailure(error.toString()));
-  }
-};
+export const getPosts = (searchData) => ({
+  type: GET_POSTS,
+  promise: API.posts.fetchPosts(searchData),
+});

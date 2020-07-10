@@ -9,7 +9,6 @@ const INITIAL_STATE = {
   errorInfo: null,
   postListData: null,
   actionStatus: null,
-  cachedSearchData: null,
 };
 
 export const postsReducer = (state = INITIAL_STATE, action) => {
@@ -22,7 +21,6 @@ export const postsReducer = (state = INITIAL_STATE, action) => {
         isLoading: true,
         postListData: null,
         actionStatus: type,
-        cachedSearchData: payload,
       };
     case GET_POSTS_SUCCESS:
       return {

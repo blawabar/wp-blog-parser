@@ -1,5 +1,5 @@
-export { getPost, clearPost } from "./post.actions";
-export { getPosts } from "./posts.actions";
+export * from "./post.actions";
+export * from "./posts.actions";
 export {
   setSearchData,
   setModalVisibility,

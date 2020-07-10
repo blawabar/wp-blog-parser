@@ -3,41 +3,28 @@ import {
   GET_POST_SUCCESS,
   GET_POST_FAILURE,
   CLEAR_POST,
+  GET_POST,
 } from "data/types";
 
 import { API } from "data/fetch";
 
-const getPostRequest = () => ({
+export const getPostRequest = () => ({
   type: GET_POST_REQUEST,
 });
 
-const getPostSuccess = (postData) => ({
+export const getPostSuccess = (postData) => ({
   type: GET_POST_SUCCESS,
   payload: postData,
 });
 
-const getPostFailure = (errorInfo) => ({
+export const getPostFailure = (errorInfo) => ({
   type: GET_POST_FAILURE,
   payload: errorInfo,
 });
 
-export const getPost = (siteId, postId) => async (dispatch) => {
-  try {
-    dispatch(getPostRequest());
-    const response = await API.post.fetchPost(siteId, postId);
+export const getPost = (siteId, postId) => ({
+  type: GET_POST,
+  promise: API.post.fetchPost(siteId, postId),
+});
 
-    if (response.ok) {
-      const postData = await response.json();
-      dispatch(getPostSuccess(postData));
-    } else {
-      const error = await response.json();
-      throw new Error(error.toString());
-    }
-  } catch (error) {
-    dispatch(getPostFailure(error.toString()));
-  }
-};
-
-export const clearPost = () => async (dispatch) => {
-  dispatch({ type: CLEAR_POST });
-};
+export const clearPost = () => ({ type: CLEAR_POST });

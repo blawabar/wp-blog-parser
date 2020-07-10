@@ -10,7 +10,7 @@ export const promiseMiddleware = () => (next) => async (action) => {
   if (typeIsValid && promiseIsValid) {
     let actionHandler;
     try {
-      actionHandler = new ActionHandlerFactory(next, type).getHandler();
+      actionHandler = new ActionHandlerFactory(next).getHandler(type);
       actionHandler.handleOnRequest();
 
       const response = await promise;

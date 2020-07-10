@@ -28,26 +28,25 @@ class PostsActionHandler extends AbstraActionHandler {
 }
 
 class ActionHandlerFactory {
-  constructor(next, actionType) {
+  constructor(next) {
     if (ActionHandlerFactory.exists) {
       return ActionHandlerFactory.instance;
     }
 
     const _next = next;
-    const _actionType = actionType;
 
-    this.getHandler = () => {
-      if (_actionType === GET_POST) {
+    this.getHandler = (actionType) => {
+      if (actionType === GET_POST) {
         return new PostActionHandler(_next);
       }
 
-      if (_actionType === GET_POSTS) {
+      if (actionType === GET_POSTS) {
         return new PostsActionHandler(_next);
       }
     };
 
-    AbstraActionHandler.instance = this;
-    AbstraActionHandler.exists = true;
+    ActionHandlerFactory.instance = this;
+    ActionHandlerFactory.exists = true;
 
     return this;
   }
